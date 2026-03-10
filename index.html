@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +9,6 @@
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.1.1/dist/tesseract.min.js"></script>
 
 <style>
-
 body{
   font-family:'Aladin', cursive;
   background-image:url("https://i.pinimg.com/736x/6b/21/12/6b211209c4901314be43910c3db946d2.jpg");
@@ -36,7 +36,7 @@ body{
   overflow:hidden;
 }
 
-/* SPARKLING EFFECT */
+/* SPARKLING */
 .container::before{
 content:"";
 position:absolute;
@@ -57,7 +57,7 @@ pointer-events:none;
 100%{transform:translateY(0px)}
 }
 
-/* JUDUL STYLE */
+/* JUDUL */
 h1{
 font-size:40px;
 letter-spacing:3px;
@@ -82,7 +82,7 @@ opacity:0.9;
 textarea{
 width:60%;
 height:150px;
-margin-top:20px;
+margin-top:10px;
 font-size:16px;
 padding:10px;
 border-radius:8px;
@@ -95,14 +95,14 @@ font-family:'Courier New', monospace;
 
 /* BUTTON */
 button{
-padding:10px 25px;
-margin-top:15px;
+padding:10px 18px;
+margin-top:10px;
 cursor:pointer;
 border:none;
 border-radius:8px;
 background:#3b82f6;
 color:white;
-margin:3px;
+font-size:20px;
 }
 
 button:hover{
@@ -125,20 +125,23 @@ text-shadow:0 0 10px #7ec8ff;
 
 <div class="container">
 
-<h1>NOPP</h1>
+<h1>YO MEI YUAN</h1>
 
 <div class="verse">
-Saudara-saudara, aku sendiri tidak menganggap bahwa aku telah menangkapnya,
-tetapi ini yang kulakukan: aku melupakan apa yang telah di belakangku
-dan mengarahkan diri kepada apa yang di hadapanku.  
-<b>Filipi 3:13</b>
+Percayalah kepada TUHAN dengan segenap hatimu, dan jangan bersandar kepada pengertianmu sendiri.
+Akuilah Dia dalam segala lakumu, maka Ia akan meluruskan jalanmu.
+<b>Amsal 3:5-6</b>
 </div>
 
-<input type="file" id="imageInput">
-<br>
-<button onclick="copyText()">Copy Text</button>
-
 <textarea id="result" placeholder="Sini Guyssss hehehe"></textarea>
+
+<br>
+
+<input type="file" id="imageInput">
+
+<br>
+
+<button onclick="copyText()">📋</button>
 
 </div>
 
@@ -183,14 +186,13 @@ runOCR(blob);
 })
 
 function copyText(){
-
 const textarea = document.getElementById("result");
 textarea.select();
 document.execCommand("copy");
-
 }
 
 </script>
 
 </body>
 </html>
+```
