@@ -4,12 +4,11 @@
 <meta charset="UTF-8">
 <title>NOPP</title>
 
-<!-- ===== IMPORT FONT ALADIN ===== -->
 <link href="https://fonts.googleapis.com/css2?family=Aladin&display=swap" rel="stylesheet">
-
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.1.1/dist/tesseract.min.js"></script>
 
 <style>
+
 body{
   font-family:'Aladin', cursive;
   background-image:url("https://i.pinimg.com/736x/6b/21/12/6b211209c4901314be43910c3db946d2.jpg");
@@ -21,7 +20,7 @@ body{
   margin:0;
 }
 
-/* ===== PANEL UTAMA GLASS ===== */
+/* PANEL */
 .container{
   max-width:750px;
   margin:400px auto 0 auto;
@@ -32,69 +31,93 @@ body{
   display:flex;
   flex-direction:column;
   align-items:center;
-  box-shadow:0 10px 30px rgba(0,0,0,0.5);
+  box-shadow:0 10px 30px rgba(0,0,0,0.6);
+  position:relative;
+  overflow:hidden;
 }
 
+/* SPARKLING EFFECT */
+.container::before{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background-image:
+radial-gradient(white 1px, transparent 1px),
+radial-gradient(white 1px, transparent 1px);
+background-size:40px 40px;
+animation:sparkle 6s linear infinite;
+opacity:0.4;
+pointer-events:none;
+}
+
+@keyframes sparkle{
+0%{transform:translateY(0px)}
+50%{transform:translateY(-10px)}
+100%{transform:translateY(0px)}
+}
+
+/* JUDUL STYLE */
 h1{
-  margin-bottom:10px;
-  letter-spacing:2px;
-  font-size:32px;
+font-size:40px;
+letter-spacing:3px;
+color:#a6d4ff;
+text-shadow:
+0 0 5px #7ec8ff,
+0 0 10px #7ec8ff,
+0 0 20px #4aa8ff,
+0 0 30px #4aa8ff;
+margin-bottom:10px;
 }
 
-/* ===== TEKS WARNA-WARNI ===== */
-.rainbow-text span{
-  font-weight:bold;
-  display:inline-block;
-  font-family:'Aladin', cursive;
-}
-
-/* ===== AYAT ALKITAB ===== */
+/* AYAT */
 .verse{
-  margin-bottom:20px;
-  font-size:15px;
-  opacity:0.9;
-  color:white; /* tetap putih */
-  font-family:'Aladin', cursive;
+color:white;
+font-size:15px;
+margin-bottom:20px;
+opacity:0.9;
 }
 
-/* ===== TEXTAREA ===== */
+/* TEXTAREA */
 textarea{
-  width:60%;
-  height:150px;
-  margin-top:20px;
-  font-size:16px;
-  padding:10px;
-  border-radius:8px;
-  border:none;
-  resize:none;
-  background:rgba(255,255,255,0.3);
-  color:black;
-  font-family: 'Courier New', monospace;
+width:60%;
+height:150px;
+margin-top:20px;
+font-size:16px;
+padding:10px;
+border-radius:8px;
+border:none;
+resize:none;
+background:rgba(255,255,255,0.35);
+color:black;
+font-family:'Courier New', monospace;
 }
 
+/* BUTTON */
 button{
-  padding:10px 25px;
-  margin-top:15px;
-  cursor:pointer;
-  border:none;
-  border-radius:8px;
-  background:#3b82f6;
-  color:white;
-  margin:3px;
+padding:10px 25px;
+margin-top:15px;
+cursor:pointer;
+border:none;
+border-radius:8px;
+background:#3b82f6;
+color:white;
+margin:3px;
 }
 
 button:hover{
-  background:#2563eb;
+background:#2563eb;
 }
 
-/* ===== NAMA BAWAH ===== */
+/* FOOTER */
 .footer-name{
-  margin-top:30px;
-  font-size:18px;
-  font-weight:bold;
-  letter-spacing:1px;
-  opacity:0.9;
+margin-top:30px;
+font-size:18px;
+font-weight:bold;
+color:#bde0ff;
+text-shadow:0 0 10px #7ec8ff;
 }
+
 </style>
 </head>
 
@@ -102,9 +125,9 @@ button:hover{
 
 <div class="container">
 
-<h1 class="rainbow-text" id="title-text">NOPP</h1>
+<h1>NOPP</h1>
 
-<div class="verse" id="verse-text">
+<div class="verse">
 Saudara-saudara, aku sendiri tidak menganggap bahwa aku telah menangkapnya,
 tetapi ini yang kulakukan: aku melupakan apa yang telah di belakangku
 dan mengarahkan diri kepada apa yang di hadapanku.  
@@ -119,66 +142,54 @@ dan mengarahkan diri kepada apa yang di hadapanku.
 
 </div>
 
-<!-- ===== NAMA BAWAH ===== -->
-<div class="footer-name rainbow-text" id="footer-name">Nop Nop</div>
+<div class="footer-name">Nop Nop</div>
 
 <script>
-/* ===== WARNA-WARNI SETIAP HURUF ===== */
-function makeRainbow(elementId){
-  const el = document.getElementById(elementId);
-  const text = el.innerText;
-  const colors = ['#FF0000','#FF7F00','#FFFF00','#00FF00','#0000FF','#4B0082','#9400D3'];
-  let html = '';
-  for(let i=0; i<text.length; i++){
-    const char = text[i];
-    const color = colors[i % colors.length];
-    html += '<span style="color:'+color+'">'+char+'</span>';
-  }
-  el.innerHTML = html;
-}
 
-// Terapkan ke judul dan nama bawah saja
-makeRainbow('title-text');
-makeRainbow('footer-name');
-
-/* ===== OCR FUNCTION ===== */
 function runOCR(image){
-  Tesseract.recognize(
-    image,
-    'eng'
-  ).then(({ data: { text } }) => {
-    let cleaned = text.replace(/\n+/g,"").replace(/\s+/g,"").trim();
-    const resultArea = document.getElementById("result");
-    resultArea.value = cleaned;
-    
-    resultArea.style.backgroundColor = "rgba(255,255,255,0.3)";
-    resultArea.style.color = "black";
-  })
+Tesseract.recognize(
+image,
+'eng'
+).then(({ data: { text } }) => {
+
+let cleaned = text.replace(/\n+/g,"").replace(/\s+/g,"").trim();
+
+const resultArea = document.getElementById("result");
+resultArea.value = cleaned;
+
+})
 }
 
-/* ===== UPLOAD GAMBAR ===== */
 document.getElementById('imageInput').addEventListener('change',function(){
-  const file = this.files[0];
-  runOCR(file);
+const file = this.files[0];
+runOCR(file);
 })
 
-/* ===== PASTE SCREENSHOT ===== */
 document.addEventListener('paste',function(event){
-  const items = event.clipboardData.items;
-  for (let i = 0; i < items.length; i++) {
-    if (items[i].type.indexOf("image") !== -1) {
-      const blob = items[i].getAsFile();
-      runOCR(blob);
-    }
-  }
+
+const items = event.clipboardData.items;
+
+for (let i = 0; i < items.length; i++) {
+
+if (items[i].type.indexOf("image") !== -1) {
+
+const blob = items[i].getAsFile();
+runOCR(blob);
+
+}
+
+}
+
 })
 
-/* ===== COPY TEXT ===== */
 function copyText(){
-  const textarea = document.getElementById("result");
-  textarea.select();
-  document.execCommand("copy");
+
+const textarea = document.getElementById("result");
+textarea.select();
+document.execCommand("copy");
+
 }
+
 </script>
 
 </body>
